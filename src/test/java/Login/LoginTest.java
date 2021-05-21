@@ -1,16 +1,12 @@
 package Login;
 
 import Pages.Login;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 
 public class LoginTest {
@@ -32,10 +28,7 @@ public class LoginTest {
     @Test
     public void LoginAndLogoutIntoSpree() throws Exception {
         Login login = new Login(driver);
-        WebDriverWait wait = new WebDriverWait(driver,10);
-        wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.id("link-to-login")));
-        WebElement loginIcon = driver.findElement(By.id("link-to-login"));
-        loginIcon.click();
+        login.clickLoginButton();
         login.loginAs("jency@gmail.com","jency123");
         Assert.assertEquals(login.getLoginMessage(),"Logged in successfully");
         Logout logout = new Logout(driver);
@@ -46,10 +39,7 @@ public class LoginTest {
     @Test
     public void invalidLoginIntoSpree() throws Exception {
         Login login = new Login(driver);
-        WebDriverWait wait = new WebDriverWait(driver,10);
-        wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.id("link-to-login")));
-        WebElement loginIcon = driver.findElement(By.id("link-to-login"));
-        loginIcon.click();
+        login.clickLoginButton();
         login.loginAs("jency@gmail.com","jency1234");
         Assert.assertEquals(login.getLoginMessage(),"Invalid email or password.");
     }

@@ -11,10 +11,11 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 public class Header {
     public WebDriver driver;
 
-
-
     @FindBy(css =".alert")
     private WebElement loginMessage;
+
+    @FindBy(id="link-to-login")
+    private WebElement linkToLogin;
 
     public Header(WebDriver driver){
         this.driver = driver;
@@ -22,8 +23,11 @@ public class Header {
     }
 
     public void clickLoginButton(){
-        driver.findElement(By.id("link-to-login")).click();
+        WebDriverWait wait = new WebDriverWait(driver,10);
+        wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.id("link-to-login")));
+        linkToLogin.click();
     }
+
     public String getLoginMessage(){
         WebDriverWait wait = new WebDriverWait(driver,10);
         wait.until(ExpectedConditions.visibilityOf(loginMessage));
