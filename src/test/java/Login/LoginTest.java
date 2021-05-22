@@ -1,12 +1,18 @@
 package Login;
 
 import Pages.Login;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.io.FileHandler;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+
+import java.io.File;
+import java.util.Date;
 
 
 public class LoginTest {
@@ -21,8 +27,12 @@ public class LoginTest {
     }
 
     @AfterMethod
-    public void tearDown()
+    public void tearDown() throws Exception
     {
+        Date date = new Date();
+        String FileName = date.toString().replace(":","-").replace(" ", "_") + ".png";
+        File screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+        FileHandler.copy(screenshot, new File(System.getProperty("user.dir")+"/Screenshots" + FileName));
         driver.quit();
     }
     @Test
